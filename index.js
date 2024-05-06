@@ -51,6 +51,14 @@ async function run() {
       res.send(result);
     });
 
+    // Get all posted data by specific user/ email
+    app.get("/jobs/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { "buyer.email": email };
+      const result = await jobsCollection.find(query).toArray();
+      res.send(result);
+    });
+
     //! Bids data related word
     // Save a bid data in database
     app.post("/bid", async (req, res) => {
