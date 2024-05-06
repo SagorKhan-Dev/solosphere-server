@@ -30,6 +30,13 @@ async function run() {
     const bidsCollection = client.db("soloSphere").collection("bids");
 
     //! Jobs data related work:
+    // Save a job data in db
+    app.post("/job", async (req, res) => {
+      const jobData = req.body;
+      const result = await jobsCollection.insertOne(jobData);
+      res.send(result);
+    });
+
     // Get all jobs data from db
     app.get("/jobs", async (req, res) => {
       const result = await jobsCollection.find().toArray();
