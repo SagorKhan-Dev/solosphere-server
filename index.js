@@ -59,6 +59,14 @@ async function run() {
       res.send(result);
     });
 
+    // Delete a posted data
+    app.delete("/job/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await jobsCollection.deleteOne(query);
+      res.send(result);
+    });
+
     //! Bids data related word
     // Save a bid data in database
     app.post("/bid", async (req, res) => {
