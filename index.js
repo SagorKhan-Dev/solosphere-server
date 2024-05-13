@@ -106,6 +106,17 @@ async function run() {
       res.send(result);
     });
 
+    // Update my-bids status
+    app.patch("/bid/:id", async (req, res) => {
+      const id = req.params.id;
+      const status = req.body;
+      const query = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: status,
+      };
+      const result = await bidsCollection.updateOne(query, updateDoc);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
